@@ -14,7 +14,7 @@ document.addEventListener("click", function (e) {
 });
 //Notifys service-worker to toggle refreshing.
 function notifyBackgroundPage(e) {
-	const sending = chrome.runtime.sendMessage({
+	const sending = browser.runtime.sendMessage({
 		greeting: "Toggling Refresh State",
 		refreshMS: getSeconds(), 
 		toggleRefresh: true
@@ -24,7 +24,7 @@ function notifyBackgroundPage(e) {
 
 //Gets refresh status from the service-worker.
 function getRefreshStatus(e) {
-	const sending = chrome.runtime.sendMessage({
+	const sending = browser.runtime.sendMessage({
 		getStatus: true
 	});
 	sending.then(setButtonText, handleError);
@@ -47,17 +47,17 @@ function setButtonText(message) {
 
 //Saves Form Data to Extension Defaults
 function saveFormData() {
-	chrome.storage.sync.set({ defaultMinutes: document.getElementById("FormMinutes").value }).then(() => {
+	browser.storage.sync.set({ defaultMinutes: document.getElementById("FormMinutes").value }).then(() => {
 		console.log('Minutes value is set');
 	}).catch((error) => {
 		console.error('Error setting value: ', error);
 	});
-	chrome.storage.sync.set({ defaultSeconds: document.getElementById("FormSeconds").value }).then(() => {
+	browser.storage.sync.set({ defaultSeconds: document.getElementById("FormSeconds").value }).then(() => {
 		console.log('Seconds value is set');
 	}).catch((error) => {
 		console.error('Error setting value: ', error);
 	});
-	chrome.storage.sync.set({ defaultAutoStart: document.getElementById("AutoStart").checked }).then(() => {
+	browser.storage.sync.set({ defaultAutoStart: document.getElementById("AutoStart").checked }).then(() => {
 		console.log('Autostart value is set');
 	}).catch((error) => {
 		console.error('Error setting value: ', error);
@@ -66,17 +66,17 @@ function saveFormData() {
 
 //Sets Extension Defaults
 function setDefaults(e) {
-	chrome.storage.sync.get(['defaultMinutes']).then(result => {
+	browser.storage.sync.get(['defaultMinutes']).then(result => {
 		document.getElementById("FormMinutes").value = result.defaultMinutes;
 	}).catch((error) => {
 		console.log('Error getting value', error);
 	});
-	chrome.storage.sync.get(['defaultSeconds']).then(result => {
+	browser.storage.sync.get(['defaultSeconds']).then(result => {
 		document.getElementById("FormSeconds").value = result.defaultSeconds;
 	}).catch((error) => {
 		console.log('Error getting value', error);
 	});
-	chrome.storage.sync.get(['defaultAutoStart']).then(result => {
+	browser.storage.sync.get(['defaultAutoStart']).then(result => {
 		document.getElementById("AutoStart").checked = result.defaultAutoStart;
 	}).catch((error) => {
 		console.log('Error getting value', error);

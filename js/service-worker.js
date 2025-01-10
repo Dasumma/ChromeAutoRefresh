@@ -7,7 +7,7 @@ async function startUp(){
 	let min = await defaultMinutes();
 	let sec = await defaultSeconds();
 	let ms = min * 60000 + sec * 1000;
-	chrome.storage.sync.get(['defaultAutoStart']).then(result => {
+	browser.storage.sync.get(['defaultAutoStart']).then(result => {
 		if(result.defaultAutoStart){
 			console.log(ms);
 			refresh = true;
@@ -19,7 +19,7 @@ async function startUp(){
 }
 
 async function defaultMinutes(){
-	return await chrome.storage.sync.get(['defaultMinutes']).then(result => {
+	return await browser.storage.sync.get(['defaultMinutes']).then(result => {
 		return result.defaultMinutes;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -27,7 +27,7 @@ async function defaultMinutes(){
 }
 
 async function defaultSeconds(){
-	return await chrome.storage.sync.get(['defaultSeconds']).then(result => {
+	return await browser.storage.sync.get(['defaultSeconds']).then(result => {
 		return result.defaultSeconds;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -54,7 +54,7 @@ function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.greeting}`);
 }
 
-chrome.runtime.onMessage.addListener(handleMessage);
+browser.runtime.onMessage.addListener(handleMessage);
 
 
 async function reloadFunction(ms){
@@ -64,9 +64,9 @@ async function reloadFunction(ms){
 		await new Promise((r,reject) => setTimeout(r, ms));
 		if (!refresh) return;
 		console.log("Reloaded");
-		chrome.tabs.query({active: true}, function (arrayOfTabs) {
+		browser.tabs.query({active: true}, function (arrayOfTabs) {
 			arrayOfTabs.forEach(function (tab) {
-				chrome.tabs.reload(tab.id);
+				browser.tabs.reload(tab.id);
 			});				
 		});
 	}

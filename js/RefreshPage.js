@@ -1,8 +1,10 @@
 //Created on startup
 
-document.onreadystatechange = setDefaults;
-
+document.addEventListener("DOMContentLoaded", function(event) {
+    setDefaults();
+});
 document.getElementById("MainButton").addEventListener("click", function (e) {
+	saveFormData();
 	notifyBackgroundPage();
 });
 document.getElementById("SaveButton").addEventListener("click", function (e) {

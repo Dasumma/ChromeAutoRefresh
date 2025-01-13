@@ -1,7 +1,7 @@
 {
 	"name": "Refresh Page",
 	"description": "Refreshes Page On Interval",
-	"version": "1.0",
+	"version": "1.1",
 	"content_scripts" : [
 		{
 			"matches": ["https://*/*"],
@@ -33,7 +33,7 @@
 	],
 	"browser_specific_settings": {
 	  "gecko": {
-		"id": "AutoRefresh@Dasumma1.com",
+		"id": "FirefoxAutoRefresh@Dasumma1.com",
 		"strict_min_version": "109.0"
 	  }
 	}

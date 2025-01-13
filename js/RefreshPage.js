@@ -12,6 +12,18 @@ document.addEventListener("click", function (e) {
 	saveFormData();
 	getRefreshStatus();
 });
+document.getElementById("FormMinutes").addEventListener("input", function (e) {
+	if (getSeconds() < 15000) {
+		document.getElementById("FormSeconds").value = 15;
+		document.getElementById("FormSeconds").placeholder = 15;
+	}
+});
+document.getElementById("FormSeconds").addEventListener("input", function (e) {	
+	if (getSeconds() < 15000) {
+		document.getElementById("FormSeconds").value = 15;
+		document.getElementById("FormSeconds").placeholder = 15;
+	}
+});
 //Notifys service-worker to toggle refreshing.
 function notifyBackgroundPage(e) {
 	const sending = browser.runtime.sendMessage({

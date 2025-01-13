@@ -4,7 +4,6 @@
 	"version": "1.1",
 	"content_scripts" : [
 		{
-			"matches": ["https://*/*"],
 			"js" : [
 				"js/bootstrap.bundle.min.js",
 				"js/RefreshPage.js"

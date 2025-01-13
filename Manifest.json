@@ -23,12 +23,9 @@
 		"default_icon": "media/favicon.png"
 	},
 	"host_permissions" : [
-		"<all_urls>"
 	],
 	"permissions": [
-		"tabs",
 		"scripting",
-		"activeTab",
 		"storage"
 	],
 	"browser_specific_settings": {

@@ -7,7 +7,7 @@ async function startUp(){
 	let min = await defaultMinutes();
 	let sec = await defaultSeconds();
 	let ms = min * 60000 + sec * 1000;
-	browser.storage.sync.get(['defaultAutoStart']).then(result => {
+	chrome.storage.sync.get(['defaultAutoStart']).then(result => {
 		if(result.defaultAutoStart){
 			console.log(ms);
 			refresh = true;
@@ -19,8 +19,8 @@ async function startUp(){
 }
 
 async function defaultMinutes(){
-	return await browser.storage.sync.get(['defaultMinutes']).then(result => {
-		if(result.defaultMinutes == null) browser.storage.sync.set({'defaultMinutes': 15});
+	return await chrome.storage.sync.get(['defaultMinutes']).then(result => {
+		if(result.defaultMinutes == null) chrome.storage.sync.set({'defaultMinutes': 15});
 		return result.defaultMinutes;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -28,8 +28,8 @@ async function defaultMinutes(){
 }
 
 async function defaultSeconds(){
-	return await browser.storage.sync.get(['defaultSeconds']).then(result => {
-		if(result.defaultSeconds == null) browser.storage.sync.set({'defaultMinutes': 0});
+	return await chrome.storage.sync.get(['defaultSeconds']).then(result => {
+		if(result.defaultSeconds == null) chrome.storage.sync.set({'defaultSeconds': 0});
 		return result.defaultSeconds;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -56,7 +56,7 @@ function handleMessage(request, sender, sendResponse) {
   console.log(`A content script sent a message: ${request.greeting}`);
 }
 
-browser.runtime.onMessage.addListener(handleMessage);
+chrome.runtime.onMessage.addListener(handleMessage);
 
 
 async function reloadFunction(ms){
@@ -67,9 +67,9 @@ async function reloadFunction(ms){
 		await new Promise((r,reject) => setTimeout(r, ms));
 		if (!refresh) return;
 		console.log("Reloaded");
-		browser.tabs.query({active: true}, function (arrayOfTabs) {
+		chrome.tabs.query({active: true}, function (arrayOfTabs) {
 			arrayOfTabs.forEach(function (tab) {
-				browser.tabs.reload(tab.id);
+				chrome.tabs.reload(tab.id);
 			});				
 		});
 	}

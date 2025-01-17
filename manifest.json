@@ -3,7 +3,7 @@
 	"description": "Refreshes Page On Interval",
 	"version": "1.2",
 	"background" : {
-		"scripts" : ["js/service-worker.js"],
+		"scripts" : ["js/service-worker.js"]
 	},
 	"manifest_version": 3,
 	"action": {

@@ -20,6 +20,7 @@ async function startUp(){
 
 async function defaultMinutes(){
 	return await chrome.storage.sync.get(['defaultMinutes']).then(result => {
+		if(result.defaultMinutes == null) chrome.storage.sync.set({'defaultMinutes': 15});
 		return result.defaultMinutes;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -28,6 +29,7 @@ async function defaultMinutes(){
 
 async function defaultSeconds(){
 	return await chrome.storage.sync.get(['defaultSeconds']).then(result => {
+		if(result.defaultSeconds == null) chrome.storage.sync.set({'defaultSeconds': 0});
 		return result.defaultSeconds;
 	}).catch((error) => {
 		console.log('Error getting value', error);
@@ -58,6 +60,7 @@ chrome.runtime.onMessage.addListener(handleMessage);
 
 
 async function reloadFunction(ms){
+	if(ms < 15000) ms = 15000;
 	if(gl_lock === 1) return;
 	gl_lock = 1;
 	while(refresh){

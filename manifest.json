@@ -1,7 +1,7 @@
 {
 	"name": "Refresh Page",
 	"description": "Refreshes Page On Interval",
-	"version": "1.0",
+	"version": "1.1",
 	"content_scripts" : [
 		{
 			"matches": ["https://*/*"],
@@ -23,12 +23,9 @@
 		"default_icon": "media/favicon.png"
 	},
 	"host_permissions" : [
-		"<all_urls>"
 	],
 	"permissions": [
-		"tabs",
 		"scripting",
-		"activeTab",
 		"storage"
 	]
 }

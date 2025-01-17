@@ -1,16 +1,38 @@
 //Created on startup
 
-window.onload = setDefaults;
-
+document.addEventListener("DOMContentLoaded", function(event) {
+    setDefaults();
+});
 document.getElementById("MainButton").addEventListener("click", function (e) {
+	saveFormData();
 	notifyBackgroundPage();
 });
 document.getElementById("SaveButton").addEventListener("click", function (e) {
 	saveFormData();
 });
 document.addEventListener("click", function (e) {
-	saveFormData();
 	getRefreshStatus();
+});
+document.getElementById("FormMinutes").addEventListener("input", function (e) {
+	if (getSeconds() < 15000) {
+		document.getElementById("FormSeconds").value = 15;
+		document.getElementById("FormSeconds").placeholder = 15;
+	}
+});
+document.getElementById("FormSeconds").addEventListener("input", function (e) {		
+	if (document.getElementById("FormSeconds").value == 60) {
+		document.getElementById("FormSeconds").value = 0;
+		if (document.getElementById("FormMinutes").value < 600)
+			document.getElementById("FormMinutes").value = parseInt(document.getElementById("FormMinutes").value) + 1;
+	}else if (document.getElementById("FormSeconds").value == -1) {
+		document.getElementById("FormSeconds").value = 59;
+		if (document.getElementById("FormMinutes").value > 0)
+			document.getElementById("FormMinutes").value = parseInt(document.getElementById("FormMinutes").value) - 1;
+	}
+	if (getSeconds() < 15000) {
+		document.getElementById("FormSeconds").value = 15;
+		document.getElementById("FormSeconds").placeholder = 15;
+	}
 });
 //Notifys service-worker to toggle refreshing.
 function notifyBackgroundPage(e) {
@@ -67,12 +89,20 @@ function saveFormData() {
 //Sets Extension Defaults
 function setDefaults(e) {
 	chrome.storage.sync.get(['defaultMinutes']).then(result => {
-		document.getElementById("FormMinutes").value = result.defaultMinutes;
+		if(result.defaultMinutes == null) {
+			chrome.storage.sync.set({'defaultMinutes': 0});
+			document.getElementById("FormMinutes").value = 0;
+		} 
+		else document.getElementById("FormMinutes").value = result.defaultMinutes;
 	}).catch((error) => {
 		console.log('Error getting value', error);
 	});
 	chrome.storage.sync.get(['defaultSeconds']).then(result => {
-		document.getElementById("FormSeconds").value = result.defaultSeconds;
+		if(result.defaultSeconds == null) {
+			chrome.storage.sync.set({'defaultSeconds': 0});
+			document.getElementById("FormSeconds").value = 0;
+		}
+		else document.getElementById("FormSeconds").value = result.defaultSeconds;
 	}).catch((error) => {
 		console.log('Error getting value', error);
 	});

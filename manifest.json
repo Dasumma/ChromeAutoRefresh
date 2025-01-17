@@ -2,18 +2,6 @@
 	"name": "Refresh Page",
 	"description": "Refreshes Page On Interval",
 	"version": "1.1",
-	"content_scripts" : [
-		{
-			"matches": ["https://*/*"],
-			"js" : [
-				"js/bootstrap.bundle.min.js",
-				"js/RefreshPage.js"
-			],
-			"css" : [
-				"css/bootstrap.min.css"
-			]
-		}
-	],
 	"background" : {
 		"service_worker" : "js/service-worker.js"
 	},
@@ -25,7 +13,6 @@
 	"host_permissions" : [
 	],
 	"permissions": [
-		"scripting",
 		"storage"
 	]
 }

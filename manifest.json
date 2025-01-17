@@ -1,7 +1,7 @@
 {
 	"name": "Refresh Page",
 	"description": "Refreshes Page On Interval",
-	"version": "1.2",
+	"version": "1.3",
 	"background" : {
 		"scripts" : ["js/service-worker.js"]
 	},
